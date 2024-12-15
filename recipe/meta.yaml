@@ -5,24 +5,26 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/c/colorspacious/colorspacious-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/c/colorspacious/colorspacious-{{ version }}.tar.gz
   sha256: 5e9072e8cdca889dac445c35c9362a22ccf758e97b00b79ff0d5a7ba3e11b618
 
 build:
-  number: 0
+  number: 1
   noarch: python
-  script: python -m pip install --no-deps --ignore-installed .
+  script: {{ PYTHON }} -m pip install . --no-deps -vv
 
 requirements:
   host:
-    - python
+    - python {{ python_min }}
     - pip
     - numpy
   run:
-    - python
+    - python >={{ python_min }}
     - numpy
 
 test:
+  requires:
+    - python {{ python_min }}
   imports:
     - colorspacious
 
